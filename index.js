@@ -1,9 +1,13 @@
 let express = require("express")
 let expressLayouts = require("express-ejs-layouts")
+let yaml = require("js-yaml")
+let fs = require("fs")
 let session = require("express-session")
 const PORT = 3000;
 let employees = require("./routes/employees")
 let clients = require("./routes/clients")
+let api = require("./routes/api")
+const opt = yaml.load(fs.readFileSync("settings.yml", "utf8"));
 let app = express()
 
 app.set("view engine", "ejs")
@@ -12,7 +16,7 @@ app.use(expressLayouts)
 app.use(express.urlencoded({extended: false}))
 app.use(
   session({
-    secret: "aerth3456H",
+    secret: opt.sessionSecret,
     resave: false,
     saveUninitialized: true,
   })
@@ -25,7 +29,8 @@ app.use(
   )
 );
 app.use("/", clients)
-app.use("/emp", employees)
+app.use("/admin/", employees)
+app.use("/api", api)
 
 
 app.listen(PORT, () => {
