@@ -10,16 +10,22 @@
 <body>
     <header>
         <h1 class="logo">Гостилница <span>Никола</span></h1>
-        <nav class="navbar">
-            <a href="/" class="nav-element">Начало</а>
-            <a href="/reservations" class="nav-element">Резервация</а>
-            <a href="/menu" class="nav-element">Меню</а>
-            <a href="/contacts" class="nav-element">Контакти</a>
-        </nav>
     </header>
+    <nav class="navbar">
+        <a href="/" class="nav-element">Начало</а>
+        <a href="/reservations" class="nav-element">Резервация</а>
+        <a href="/menu" class="nav-element">Меню</а>
+        <a href="/contacts" class="nav-element">Контакти</a>
+    </nav>
     <video class="back-video" autoPlay muted loop>
         <source src="/public/bgvideo.webm" type="video/webm" />
     </video>
-    <%-body%>
+    <main>
+        <%-body%>
+    </main>
+    <footer>
+        <h1 class="title">Гостилница Никола &copy</h1>
+        <p class="description">Авторско право &copy;2013-2025 Гостилница Никола. Всички права са запазени!</p>
+    </footer>
 </body>
 </html>
