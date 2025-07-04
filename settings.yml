@@ -1,0 +1,19 @@
+port: 3000
+sessionSecret: "aerth3456H"
+adminPassword: "123"
+tableCount: 20
+possibleReservationTimes:
+  - "8:00"
+  - "9:00"
+  - "10:00"
+  - "11:00"
+  - "12:00"
+  - "13:00"
+  - "14:00"
+  - "15:00"
+  - "16:00"
+  - "17:00"
+phoneNumber: "0987654321"
+email: "contact@gostilnitsa.com"
+facebook: "https://www.facebook.com"
+youtube: "https://www.youtube.com"
