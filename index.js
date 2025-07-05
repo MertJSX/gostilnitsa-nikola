@@ -6,6 +6,7 @@ let session = require("express-session")
 const PORT = 3000;
 let employees = require("./routes/employees")
 let clients = require("./routes/clients")
+let ws = require("./websocket")
 let api = require("./routes/api")
 const opt = yaml.load(fs.readFileSync("settings.yml", "utf8"));
 let app = express()
