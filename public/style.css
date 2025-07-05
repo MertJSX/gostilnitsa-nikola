@@ -58,6 +58,47 @@ main {
   }
 }
 
+.admin-login {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  margin: 5px;
+  margin-top: 100px;
+  h1 {
+    font-size: 2.5rem;
+    color: white;
+    margin-bottom: 20px;
+  }
+  input {
+    color: black;
+    /* background-color: rgb(106, 106, 106); */
+    background-color: white;
+    text-align: center;
+    outline: none;
+    border: none;
+    font-size: 1.2rem;
+    width: 50%;
+    padding: 5px;
+  }
+
+  button {
+    color: black;
+    background-color: #e4e427;
+    border: none;
+    outline: none;
+    width: 50%;
+    font-size: 1.2rem;
+    padding: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    &:hover {
+      transform: scale(1.01);
+    }
+  }
+}
+
 footer {
   padding: 10px;
   background-color: #0d4b0d;
@@ -83,12 +124,20 @@ footer {
 
 @media only screen and (max-width: 600px) {
   .back-video {
-    /* object-fit: contain; */
     width: auto;
     height: 100%;
-    /* top: 0; */
     left: 50%;
     transform: translateX(-50%);
+  }
+  .admin-login {
+    input {
+      width: 90%;
+      padding: 5px;
+    }
+    button {
+      width: 90%;
+      padding: 5px;
+    }
   }
 }
 
@@ -97,6 +146,7 @@ footer {
   margin: 0;
   padding: 0;
   color: white;
+  box-sizing: border-box;
 }
 
 .flex {

@@ -18,8 +18,9 @@ header {
     filter: drop-shadow(7px 7px 8px black);
     margin-left: auto;
     margin-right: 20px;
+    font-size: 1.1rem;
+    color: #e4e427;
   }
-
 }
 .navbar {
   margin-bottom: 10px;
@@ -97,6 +98,21 @@ footer {
     left: 50%;
     transform: translateX(-50%);
   }
+  .navbar {
+    padding-left: 0px;
+    justify-content: center;
+    gap: 1px;
+    .nav-element {
+      font-size: 1.1rem;
+      padding: 10px;
+      padding-inline: 10px;
+      transition: all 0.3s ease;
+      &:hover {
+        transform: scale(1.1);
+        padding-inline: 5px;
+      }
+    }
+  }
 }
 
 * {
@@ -104,6 +120,7 @@ footer {
   margin: 0;
   padding: 0;
   color: white;
+  box-sizing: border-box;
 }
 
 .flex {
