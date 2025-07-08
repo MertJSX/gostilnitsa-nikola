@@ -1,0 +1,12 @@
+<form class="create-container" action="/admin/newfood" method="post" enctype="multipart/form-data">
+  <h1>Създай ястие</h1>
+  <label for="name">Име на ястие:</label>
+  <input type="text" name="name" placeholder="Име, заглавие..." />
+  <label for="description">Информация:</label>
+  <textarea name="description" rows="3" placeholder="Съставки, любопитни факти..."></textarea>
+  <label for="price">Цена:</label>
+  <input type="number" name="price" step="0.01" value="0.01" />
+  <label for="image">Изберете Изображение:</label>
+  <input type="file" name="image" accept="image/*" class="upload" />
+  <button type="submit">Създай ястие</button>
+</form>
