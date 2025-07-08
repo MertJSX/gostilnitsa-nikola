@@ -8,7 +8,7 @@ header {
     filter: drop-shadow(7px 7px 8px black);
     color: #37cc37;
     span {
-      color: #e4e427;
+      color: #FFC107;
     }
   }
   .admin-logo {
@@ -17,7 +17,7 @@ header {
     margin-left: auto;
     margin-right: 20px;
     font-size: 1.1rem;
-    color: #e4e427;
+    color: #FFC107;
   }
 }
 .navbar {
@@ -32,7 +32,7 @@ header {
   padding-left: 50px;
   justify-content: left;
   align-items: center;
-  background-color: yellow;
+  background-color: #FFC107;
   gap: 1px;
   border-bottom: 2px solid black;
   .nav-element {
@@ -45,6 +45,60 @@ header {
     &:hover {
       transform: scale(1.1);
       padding-inline: 60px;
+    }
+  }
+}
+
+.admin-foods {
+  width: 100%;
+  padding: 10px;
+  button {
+    display: block;
+    margin-inline: auto;
+    background-color: #FFC107;
+    color: black;
+    padding: 10px;
+    font-size: 1.5rem;
+    border-radius: 15px;
+    cursor: pointer;
+    &:hover {
+      background-color: #e5ae07;
+    }
+  }
+  .foods {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 20px;
+    article {
+      display: flex;
+      flex-direction: column;
+      width: 250px;
+      height: 400px;
+      justify-content: space-between;
+      align-items: center;
+      border: 1px solid #ddd;
+      overflow: hidden;
+      gap: 5px;
+      p {
+        width: 250px;
+      }
+      img {
+        display: block;
+        width: 250px;
+        height: 250px;
+        object-fit: cover;
+        object-position: center;
+      }
+      input {
+        width: 250px;
+        color: black;
+        text-align: center;
+        font-size: 2.5rem;
+        background-color: #FFC107;
+        border: none;
+        outline: none;
+      }
     }
   }
 }
