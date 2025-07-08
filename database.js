@@ -1,3 +1,4 @@
+const sqlite3 = require("sqlite3")
 const db = new sqlite3.Database("./database.db");
 
 function initializeDatabase() {
@@ -19,7 +20,7 @@ function initializeDatabase() {
             name TEXT,
             description TEXT,
             price REAL,
-            photo TEXT,
+            image TEXT,
             quantity INTEGER DEFAULT 0,
             created_at DATETIME DEFAULT CURRENT_TIMESTAMP
         );
@@ -27,4 +28,41 @@ function initializeDatabase() {
   });
 }
 
-module.exports = { initializeDatabase };
+function getAllFoods(callback) {
+  db.all('SELECT * FROM foods', (err, rows) => {
+    if (err) {
+      return callback(err);
+    }
+    callback(null, rows);
+  });
+}
+
+function createFood(food, callback) {
+  const { name, description, price, image } = food;
+  db.run(
+    `INSERT INTO foods (name, description, price, image) VALUES (?, ?, ?, ?)`,
+    [name, description, price, image],
+    function (err) {
+      if (err) {
+        return callback(err);
+      }
+      callback(null, { id: this.lastID, ...food });
+    }
+  );
+}
+
+function updateFoodQuantity(id, quantity, callback) {
+  db.run(
+    `UPDATE foods SET quantity = ? WHERE id = ?`,
+    [quantity, id],
+    function (err) {
+      if (err) {
+        return callback(err);
+      }
+      callback(null, { id, quantity, changes: this.changes });
+    }
+  );
+}
+
+
+module.exports = { initializeDatabase, getAllFoods, createFood, updateFoodQuantity };

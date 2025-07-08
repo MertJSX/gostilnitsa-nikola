@@ -1,1 +1,75 @@
-<h1>Foods</h1>
+<div class="admin-foods">
+  <button onclick="window.location.href='/admin/newfood'">Ново ястие</button>
+  <div class="foods">
+    <% if (!foods || foods.length === 0) { %>
+    <h3>Няма налични създадени храни</h3>
+    <% } %> <% foods.forEach(food => { %>
+    <article>
+      <h1><%= food.name %></h1>
+      <p><%= food.description %></p>
+      <img src="/public/<%= food.image %>" alt="" width="250" />
+      <input
+        onchange="onQuantityChange(event, '<%= food.id %>')"
+        id="fcount-<%= food.id %>"
+        type="number"
+        step="1"
+        min="0"
+        value="<%= food.quantity %>"
+      />
+    </article>
+    <% }); %>
+  </div>
+</div>
+
+<script>
+  const ws = new WebSocket("ws://localhost:8080");
+  const tempClientID =
+    "client-" + Date.now() + "-" + Math.random().toString(36).substring(2, 8);
+
+  let debounceTimer = null;
+  const debounceDelay = 500;
+  let lastQuantityChange = null;
+
+  ws.onopen = () => {
+    console.log("Sunucuya bağlandı!");
+  };
+
+  ws.onmessage = (event) => {
+    const data = JSON.parse(event.data);
+    console.log(data);
+
+    if (data.clientID === tempClientID) {
+      return;
+    }
+
+    switch (data.type) {
+      case "food-quantity-change":
+        document.getElementById(`fcount-${data.id}`).value = data.quantity;
+        break;
+      default:
+        break;
+    }
+  };
+
+  ws.onerror = (error) => {
+    console.error("WebSocket error:", error);
+  };
+
+  function onQuantityChange(event, foodID) {
+    clearTimeout(debounceTimer);
+
+    lastQuantityChange = {
+      type: "food-quantity-change",
+      id: foodID,
+      quantity: event.target.value,
+      clientID: tempClientID,
+    };
+
+    debounceTimer = setTimeout(() => {
+      if (lastQuantityChange) {
+        ws.send(JSON.stringify(lastQuantityChange));
+        lastQuantityChange = null;
+      }
+    }, debounceDelay);
+  }
+</script>
