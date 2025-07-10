@@ -25,6 +25,16 @@
     outline: none;
     font-size: 1.4rem;
   }
+  select {
+    background-color: #FFC107;
+    color: black;
+    font-size: 1.4rem;
+    padding-inline: 2rem;
+    cursor: pointer;
+    option {
+      color: black;
+    }
+  }
   button {
     width: 90%;
     background-color: #FFC107;
