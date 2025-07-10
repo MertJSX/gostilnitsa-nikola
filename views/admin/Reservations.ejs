@@ -1,26 +1,21 @@
 <h1>Admin Reservations</h1>
 <script>
-    // WebSocket bağlantısını başlat
     const ws = new WebSocket('ws://localhost:8080');
 
-    // Bağlantı açıldığında
     ws.onopen = () => {
       console.log('Sunucuya bağlandı!');
       ws.send('Merhaba sunucu! (Tarayıcıdan)');
     };
 
-    // Mesaj geldiğinde
     ws.onmessage = (event) => {
       console.log('Sunucudan gelen mesaj:', event.data);
       alert('Mesaj: ' + event.data);
     };
 
-    // Bağlantı kapandığında
     ws.onclose = () => {
       console.log('Bağlantı kapandı!');
     };
 
-    // Hata durumunda
     ws.onerror = (error) => {
       console.error('WebSocket hatası:', error);
     };
