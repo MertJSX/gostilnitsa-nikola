@@ -64,5 +64,28 @@ function updateFoodQuantity(id, quantity, callback) {
   );
 }
 
+function createReservation(reservation, callback) {
+  const { userEmail, reservationDate, reservationTime, userPhoneNumber, approved } = reservation;
+  db.run(
+    `INSERT INTO reservations (userEmail, reservationDate, reservationTime, userPhoneNumber, approved) VALUES (?, ?, ?, ?, ?)`,
+    [userEmail, reservationDate, reservationTime, userPhoneNumber, approved || "false"],
+    function (err) {
+      if (err) {
+        return callback(err);
+      }
+      callback(null, { id: this.lastID, ...reservation });
+    }
+  );
+}
+
+function getAllReservations(callback) {
+  db.all('SELECT * FROM reservations', (err, rows) => {
+    if (err) {
+      return callback(err);
+    }
+    callback(null, rows);
+  });
+}
+
 
 module.exports = { initializeDatabase, getAllFoods, createFood, updateFoodQuantity };
