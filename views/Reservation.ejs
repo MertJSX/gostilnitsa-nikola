@@ -1,1 +1,24 @@
-<h1>Резервация</h1>
+<form class="create-container" action="/reservation" method="post" enctype="multipart/form-data">
+  <h1>Нова резервация</h1>
+  <label for="email">Имейл:</label>
+  <input type="email" name="email" placeholder="Вашият имейл" required />
+  <label for="email">Телефонен номер:</label>
+  <input type="tel" name="phoneNumber" placeholder="5555555555 или 555 555 5555 или 555-555-5555"
+  pattern="[0-9]{3}[0-9]{3}[0-9]{4}|[0-9]{3} [0-9]{3} [0-9]{4}|[0-9]{3}-[0-9]{3}-[0-9]{4}" required />
+  <label for="reservationDate">Дата за резервация:</label>
+  <input type="date" name="reservationDate" required>
+  <label for="reservationDate">Час за резервация:</label>
+  <select name="reservationTime" id="" required>
+    <option value="">8:00</option>
+    <option value="">9:00</option>
+    <option value="">10:00</option>
+    <option value="">11:00</option>
+    <option value="">12:00</option>
+    <option value="">13:00</option>
+    <option value="">14:00</option>
+    <option value="">15:00</option>
+    <option value="">16:00</option>
+    <option value="">17:00</option>
+  </select>
+  <button type="submit">Направи резервация</button>
+</form>
