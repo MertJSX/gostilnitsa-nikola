@@ -1,22 +1,77 @@
-<h1>Admin Reservations</h1>
+<section class="reservations">
+  <% if (!reservations || reservations.length === 0) { %>
+  <h3>Няма налични направени заявки за резервация</h3>
+  <% } else { %> <% reservations.forEach(reservation => { %>
+  <article class="reservation" data-approved="<%= reservation.approved %>">
+    <p>Имейл: <%= reservation.userEmail %></p>
+    <p>Телефон: <%= reservation.userPhoneNumber %></p>
+    <p>Дата: <%= reservation.reservationDate %></p>
+    <p>Час: <%= reservation.reservationTime %></p>
+    <select
+      onchange="onStateChange(event, '<%=reservation.id%>')"
+      id="rapproved-<%=reservation.id%>"
+    >
+      <option value="true">Потвърден</option>
+      <option value="false">Отхвърлен</option>
+      <option value="waiting">Чакащ</option>
+    </select>
+  </article>
+  <% }); %> <% } %>
+</section>
+
 <script>
-    const ws = new WebSocket('ws://localhost:8080');
+  const ws = new WebSocket("ws://localhost:8080");
+  const tempClientID =
+    "client-" + Date.now() + "-" + Math.random().toString(36).substring(2, 8);
 
-    ws.onopen = () => {
-      console.log('Sunucuya bağlandı!');
-      ws.send('Merhaba sunucu! (Tarayıcıdan)');
+  document.addEventListener('DOMContentLoaded', function() {
+    document.querySelectorAll('.reservation').forEach(reservationEl => {
+      const approvedValue = reservationEl.getAttribute('data-approved');
+      const select = reservationEl.querySelector('select');
+      
+      if (approvedValue === 'true') {
+        select.value = 'true';
+      } else if (approvedValue === 'false') {
+        select.value = 'false';
+      } else {
+        select.value = 'waiting';
+      }
+    });
+  });
+
+  ws.onopen = () => {
+    console.log("Connected to server!");
+  };
+
+  ws.onmessage = (event) => {
+    const data = JSON.parse(event.data);
+    console.log(data);
+
+    if (data.clientID === tempClientID) {
+      return;
+    }
+
+    switch (data.type) {
+      case "reservation-state-change":
+        document.getElementById(`rapproved-${data.id}`).value = data.approved;
+        break;
+      default:
+        break;
+    }
+  };
+
+  ws.onerror = (error) => {
+    console.error("WebSocket error:", error);
+  };
+
+  function onStateChange(event, reservationID) {
+    let lastQuantityChange = {
+      type: "reservation-state-change",
+      id: reservationID,
+      approved: event.target.value,
+      clientID: tempClientID,
     };
 
-    ws.onmessage = (event) => {
-      console.log('Sunucudan gelen mesaj:', event.data);
-      alert('Mesaj: ' + event.data);
-    };
-
-    ws.onclose = () => {
-      console.log('Bağlantı kapandı!');
-    };
-
-    ws.onerror = (error) => {
-      console.error('WebSocket hatası:', error);
-    };
+    ws.send(JSON.stringify(lastQuantityChange));
+  }
 </script>

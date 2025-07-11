@@ -1,1 +1,13 @@
-<h1>Меню</h1>
+<h1 class="center">Дневно меню</h1>
+<div class="foods">
+  <% if (!foods || foods.length === 0) { %>
+  <h3>Няма налични създадени храни</h3>
+  <% } %> <% foods.forEach(food => { %>
+  <article>
+    <h1><%= food.name %></h1>
+    <p><%= food.description %></p>
+    <p>Цена: <span class="price"><%= Number(food.price).toFixed(2) %> лв.</span></p>
+    <img src="/public/<%= food.image %>" alt="" width="250" />
+  </article>
+  <% }); %>
+</div>
