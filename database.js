@@ -1,4 +1,4 @@
-const sqlite3 = require("sqlite3")
+const sqlite3 = require("sqlite3");
 const db = new sqlite3.Database("./database.db");
 
 function initializeDatabase() {
@@ -10,7 +10,7 @@ function initializeDatabase() {
             reservationDate TEXT,
             reservationTime TEXT,
             userPhoneNumber TEXT,
-            approved TEXT DEFAULT "false",
+            approved TEXT DEFAULT "waiting",
             created_at DATETIME DEFAULT CURRENT_TIMESTAMP
         );
     `);
@@ -29,7 +29,7 @@ function initializeDatabase() {
 }
 
 function getAllFoods(callback) {
-  db.all('SELECT * FROM foods', (err, rows) => {
+  db.all("SELECT * FROM foods", (err, rows) => {
     if (err) {
       return callback(err);
     }
@@ -51,6 +51,19 @@ function createFood(food, callback) {
   );
 }
 
+function deleteFood(id, callback) {
+  db.run(
+    `DELETE FROM foods WHERE id = ?`,
+    [id],
+    function (err) {
+      if (err) {
+        return callback(err);
+      }
+      callback(null, { id, changes: this.changes });
+    }
+  );
+}
+
 function updateFoodQuantity(id, quantity, callback) {
   db.run(
     `UPDATE foods SET quantity = ? WHERE id = ?`,
@@ -65,10 +78,11 @@ function updateFoodQuantity(id, quantity, callback) {
 }
 
 function createReservation(reservation, callback) {
-  const { userEmail, reservationDate, reservationTime, userPhoneNumber, approved } = reservation;
+  const { email, reservationDate, reservationTime, phoneNumber, approved } =
+    reservation;
   db.run(
     `INSERT INTO reservations (userEmail, reservationDate, reservationTime, userPhoneNumber, approved) VALUES (?, ?, ?, ?, ?)`,
-    [userEmail, reservationDate, reservationTime, userPhoneNumber, approved || "false"],
+    [email, reservationDate, reservationTime, phoneNumber, approved || "false"],
     function (err) {
       if (err) {
         return callback(err);
@@ -79,7 +93,7 @@ function createReservation(reservation, callback) {
 }
 
 function getAllReservations(callback) {
-  db.all('SELECT * FROM reservations', (err, rows) => {
+  db.all("SELECT * FROM reservations", (err, rows) => {
     if (err) {
       return callback(err);
     }
@@ -87,5 +101,36 @@ function getAllReservations(callback) {
   });
 }
 
+function getAvailableFoods(callback) {
+  db.all("SELECT * FROM foods WHERE quantity >= 1", (err, rows) => {
+    if (err) {
+      return callback(err);
+    }
+    callback(null, rows);
+  });
+}
 
-module.exports = { initializeDatabase, getAllFoods, createFood, updateFoodQuantity };
+function updateReservationApproval(id, approved, callback) {
+  db.run(
+    `UPDATE reservations SET approved = ? WHERE id = ?`,
+    [approved, id],
+    function (err) {
+      if (err) {
+        return callback(err);
+      }
+      callback(null, { id, approved, changes: this.changes });
+    }
+  );
+}
+
+module.exports = {
+  initializeDatabase,
+  getAllFoods,
+  createFood,
+  updateFoodQuantity,
+  getAllReservations,
+  createReservation,
+  getAvailableFoods,
+  deleteFood,
+  updateReservationApproval
+};
