@@ -1,8 +1,14 @@
 let employees = require("express").Router();
 let yaml = require("js-yaml");
 let fs = require("fs");
-let { getAllFoods, createFood, updateFoodQuantity  } = require("../database");
-let image = require("../multer")
+let {
+  getAllFoods,
+  createFood,
+  updateFoodQuantity,
+  deleteFood,
+  getAllReservations,
+} = require("../database");
+let image = require("../multer");
 const opt = yaml.load(fs.readFileSync("settings.yml", "utf8"));
 
 employees.get("/login", (req, res) => {
@@ -32,6 +38,31 @@ employees.use("/", (req, res, next) => {
   next();
 });
 
+employees.get("/foods/delete", (req, res) => {
+  let id = req.query.id;
+  console.log(id);
+
+  res.render(__dirname + "/../views/admin/FoodDeleteValidation.ejs", {
+    layout: __dirname + "/../views/layouts/adminLayout.ejs",
+    title: "Админ",
+    id: id,
+  });
+});
+
+employees.post("/foods/delete", (req, res) => {
+  let id = req.query.id;
+
+  deleteFood(id, (err) => {
+    if (err) {
+      res.render(__dirname + "/../views/Error.ejs", {
+        layout: __dirname + "/../views/layouts/adminLayout.ejs",
+        title: "Админ"
+      });
+    }
+    res.redirect("/admin/foods");
+  });
+});
+
 employees.get("/logout", (req, res) => {
   req.session.destroy();
   res.redirect("/");
@@ -45,10 +76,19 @@ employees.get("/", (req, res) => {
 });
 
 employees.get("/reservations", (req, res) => {
-  res.render(__dirname + "/../views/admin/Reservations.ejs", {
-    layout: __dirname + "/../views/layouts/adminLayout.ejs",
-    title: "Админ",
-  });
+  getAllReservations((err, reservations) => {
+    if (err) {
+      return res.render(__dirname + "/../views/Error.ejs", {
+        layout: __dirname + "/../views/layouts/adminLayout.ejs",
+        title: "Админ"
+      })
+    }
+    res.render(__dirname + "/../views/admin/Reservations.ejs", {
+      layout: __dirname + "/../views/layouts/adminLayout.ejs",
+      title: "Админ",
+      reservations: reservations
+    });
+  })
 });
 
 employees.get("/foods", (req, res) => {
@@ -67,26 +107,23 @@ employees.get("/foods", (req, res) => {
 
 employees.get("/newfood", (req, res) => {
   res.render(__dirname + "/../views/admin/NewFood.ejs", {
-      layout: __dirname + "/../views/layouts/adminLayout.ejs",
-      title: "Админ"
-    });
-})
+    layout: __dirname + "/../views/layouts/adminLayout.ejs",
+    title: "Админ",
+  });
+});
 
-employees.post("/newfood", image.single("image"), (req ,res) => {
-  const {name, description, price } = req.body;
+employees.post("/newfood", image.single("image"), (req, res) => {
+  const { name, description, price } = req.body;
   let imgPath = req.file.path.replace(/\\/g, "/").replace("public", "");
 
-  createFood({image: imgPath, ...req.body}, (err, food) => {
+  createFood({ image: imgPath, ...req.body }, (err, food) => {
     if (!err) {
       console.log(food);
       return res.redirect("/admin/foods");
     }
 
-    res.redirect("/admin/newfood")
-
+    res.redirect("/admin/newfood");
   });
-
-  
-})
+});
 
 module.exports = employees;

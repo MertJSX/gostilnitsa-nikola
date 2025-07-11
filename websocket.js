@@ -1,4 +1,4 @@
-let { updateFoodQuantity } = require("./database");
+let { updateFoodQuantity, updateReservationApproval } = require("./database");
 const { WebSocketServer } = require("ws");
 const wss = new WebSocketServer({ port: 8080, noDelay: true, perMessageDeflate: false });
 
@@ -17,6 +17,15 @@ wss.on("connection", (ws) => {
       switch (parsedData.type) {
         case "food-quantity-change":
           updateFoodQuantity(parsedData.id, parsedData.quantity, (err) => {
+            if (!err) {
+              wss.clients.forEach((client) => {
+                client.send(JSON.stringify(parsedData));
+              });
+            }
+          });
+          break;
+        case "reservation-state-change":
+          updateReservationApproval(parsedData.id, parsedData.approved, (err) => {
             if (!err) {
               wss.clients.forEach((client) => {
                 client.send(JSON.stringify(parsedData));
