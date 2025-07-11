@@ -1,24 +1,40 @@
-<form class="create-container" action="/reservation" method="post" enctype="multipart/form-data">
+<form class="create-container" action="/reservation" method="post">
   <h1>Нова резервация</h1>
   <label for="email">Имейл:</label>
   <input type="email" name="email" placeholder="Вашият имейл" required />
-  <label for="email">Телефонен номер:</label>
-  <input type="tel" name="phoneNumber" placeholder="5555555555 или 555 555 5555 или 555-555-5555"
-  pattern="[0-9]{3}[0-9]{3}[0-9]{4}|[0-9]{3} [0-9]{3} [0-9]{4}|[0-9]{3}-[0-9]{3}-[0-9]{4}" required />
+  <label for="phoneNumber">Телефонен номер:</label>
+  <input
+    type="tel"
+    name="phoneNumber"
+    placeholder="5555555555 или 555 555 5555 или 555-555-5555"
+    pattern="[0-9]{3}[0-9]{3}[0-9]{4}|[0-9]{3} [0-9]{3} [0-9]{4}|[0-9]{3}-[0-9]{3}-[0-9]{4}"
+    required
+  />
   <label for="reservationDate">Дата за резервация:</label>
-  <input type="date" name="reservationDate" required>
+  <input type="date" name="reservationDate" min="" required />
   <label for="reservationDate">Час за резервация:</label>
   <select name="reservationTime" id="" required>
-    <option value="">8:00</option>
-    <option value="">9:00</option>
-    <option value="">10:00</option>
-    <option value="">11:00</option>
-    <option value="">12:00</option>
-    <option value="">13:00</option>
-    <option value="">14:00</option>
-    <option value="">15:00</option>
-    <option value="">16:00</option>
-    <option value="">17:00</option>
+    <option value="8:00" selected>8:00</option>
+    <option value="9:00">9:00</option>
+    <option value="10:00">10:00</option>
+    <option value="11:00">11:00</option>
+    <option value="12:00">12:00</option>
+    <option value="13:00">13:00</option>
+    <option value="14:00">14:00</option>
+    <option value="15:00">15:00</option>
+    <option value="16:00">16:00</option>
+    <option value="17:00">17:00</option>
   </select>
   <button type="submit">Направи резервация</button>
 </form>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const today = new Date();
+    const dd = String(today.getDate()).padStart(2, "0");
+    const mm = String(today.getMonth() + 1).padStart(2, "0");
+    const yyyy = today.getFullYear();
+    const todayFormatted = `${yyyy}-${mm}-${dd}`;
+
+    document.getElementById("reservationDate").min = todayFormatted;
+  });
+</script>

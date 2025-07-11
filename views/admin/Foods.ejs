@@ -7,6 +7,10 @@
     <article>
       <h1><%= food.name %></h1>
       <p><%= food.description %></p>
+      <p>
+        Цена:
+        <span class="price"><%= Number(food.price).toFixed(2) %> лв.</span>
+      </p>
       <img src="/public/<%= food.image %>" alt="" width="250" />
       <input
         onchange="onQuantityChange(event, '<%= food.id %>')"
@@ -16,6 +20,18 @@
         min="0"
         value="<%= food.quantity %>"
       />
+      <!-- <button
+        onclick="window.location.href='/admin/foods/edit?id=<%= food.id %>'"
+        class="edit"
+      >
+        Редактирай
+      </button> -->
+      <button
+        onclick="window.location.href='/admin/foods/delete?id=<%= food.id %>'"
+        class="delete"
+      >
+        Изтривай
+      </button>
     </article>
     <% }); %>
   </div>
@@ -31,7 +47,7 @@
   let lastQuantityChange = null;
 
   ws.onopen = () => {
-    console.log("Sunucuya bağlandı!");
+    console.log("Connected to server!");
   };
 
   ws.onmessage = (event) => {
