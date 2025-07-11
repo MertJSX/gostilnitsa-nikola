@@ -65,40 +65,26 @@ header {
       background-color: #e5ae07;
     }
   }
-  .foods {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    gap: 20px;
-    article {
-      display: flex;
-      flex-direction: column;
-      width: 250px;
-      height: 400px;
-      justify-content: space-between;
-      align-items: center;
-      border: 1px solid #ddd;
-      overflow: hidden;
-      gap: 5px;
-      p {
-        width: 250px;
-      }
-      img {
-        display: block;
-        width: 250px;
-        height: 250px;
-        object-fit: cover;
-        object-position: center;
-      }
-      input {
-        width: 250px;
-        color: black;
-        text-align: center;
-        font-size: 2.5rem;
-        background-color: #FFC107;
-        border: none;
-        outline: none;
-      }
+}
+
+.reservations {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  .reservation {
+    h1 {
+      font-size: 20px;
+    }
+    p {
+      font-size: 15px;
+    }
+    select {
+      width: 100%;
+      background-color: #FFC107;
+      color: black;
+      font-size: 1.1rem;
     }
   }
 }
@@ -142,20 +128,5 @@ footer {
     height: 100%;
     left: 50%;
     transform: translateX(-50%);
-  }
-  .navbar {
-    padding-left: 0px;
-    justify-content: center;
-    gap: 1px;
-    .nav-element {
-      font-size: 1.1rem;
-      padding: 10px;
-      padding-inline: 10px;
-      transition: all 0.3s ease;
-      &:hover {
-        transform: scale(1.1);
-        padding-inline: 5px;
-      }
-    }
   }
 }
