@@ -126,6 +126,7 @@ header {
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-wrap: wrap;
   gap: 20px;
   .reservation {
     background-color: #0e4e0e;
@@ -170,7 +171,6 @@ header {
     padding: 20px;
     transition: all 0.2s ease-in-out;
     &:hover {
-      /* background-color: #e2b01b; */
       transform: scale(1.1);
     }
   }
@@ -215,5 +215,12 @@ footer {
     height: 100%;
     left: 50%;
     transform: translateX(-50%);
+  }
+  .reservations-navbar {
+    width: 95%;
+    margin: 10px;
+    a {
+      padding: 10px;
+    }
   }
 }
