@@ -2,7 +2,7 @@
   <button onclick="window.location.href='/admin/newfood'">Ново ястие</button>
   <div class="foods">
     <% if (!foods || foods.length === 0) { %>
-    <h3>Няма налични създадени храни</h3>
+    <h3>Няма налични създадени ястия</h3>
     <% } %> <% foods.forEach(food => { %>
     <article>
       <h1><%= food.name %></h1>

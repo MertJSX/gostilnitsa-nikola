@@ -1,34 +1,51 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Гостилница - <%=title%></title>
-    <link rel="shortcut icon" href="/public/favicon.png" type="image/x-icon">
-    <link rel="stylesheet" href="/public/style.css">
-    <link rel="stylesheet" href="/public/global.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-</head>
-<body>
+    <link rel="shortcut icon" href="/public/favicon.png" type="image/x-icon" />
+    <link rel="stylesheet" href="/public/style.css" />
+    <link rel="stylesheet" href="/public/global.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+      integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+  </head>
+  <body>
     <header>
-        <h1 class="logo">Гостилница <span>Никола</span></h1>
+      <h1 class="logo">Гостилница <span>Никола</span></h1>
     </header>
     <nav class="navbar">
-        <a href="/" class="nav-element">Начало</а>
-            <a href="/menu" class="nav-element">Меню</а>
-        <a href="/reservation" class="nav-element">Резервация</а>
-        <a href="/contacts" class="nav-element">Контакти</a>
+      <a href="/" class="nav-element"
+        ><i class="fa-solid fa-house"></i>Начало</a
+      >
+      <a href="/menu" class="nav-element"
+        ><i class="fa-solid fa-utensils"></i>Меню</a
+      >
+      <a href="/reservation" class="nav-element"
+        ><i class="fa-solid fa-bell-concierge"></i>Резервация</a
+      >
+      <a href="/contacts" class="nav-element"
+        ><i class="fa-solid fa-phone"></i>Контакти</a
+      >
     </nav>
     <video class="back-video" autoPlay muted loop>
-        <source src="/public/bgvideo.webm" type="video/webm" />
+      <source src="/public/bgvideo.webm" type="video/webm" />
     </video>
-    <main>
-        <%-body%>
-    </main>
+    <main><%-body%></main>
     <footer>
-        <h1 class="title">Гостилница Никола &copy</h1>
-        <p class="description">Авторско право &copy;2013-2025 Гостилница Никола. Всички права са запазени!</p>
-        <p class="description">Сайтът е направен с учебна цел от учениците на ИСУ "Христо Ботев"!</p>
+      <h1 class="title">Гостилница Никола &copy</h1>
+      <p class="description">
+        Авторско право &copy;2013-2025 Гостилница Никола. Всички права са
+        запазени!
+      </p>
+      <p class="description">
+        Сайтът е направен с учебна цел от ученик на ИСУ "Христо Ботев"!
+      </p>
     </footer>
-</body>
+  </body>
 </html>
