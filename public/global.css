@@ -26,6 +26,8 @@
     font-size: 1.4rem;
   }
   select {
+    width: 90%;
+    text-align: center;
     background-color: #ffc107;
     color: black;
     font-size: 1.4rem;
