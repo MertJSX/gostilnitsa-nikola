@@ -5,7 +5,9 @@
   <% } %> <% foods.forEach(food => { %>
   <article>
     <h1><%= food.name %></h1>
-    <p><%= food.description %></p>
+    <% if (food.description) { %>
+      <p><%= food.description %></p>
+    <% } %>
     <p>Цена: <span class="price"><%= Number(food.price).toFixed(2) %> лв.</span></p>
     <img src="/public/<%= food.image %>" alt="" width="250" />
   </article>

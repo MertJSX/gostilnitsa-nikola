@@ -1,5 +1,13 @@
-<h1>Всички ястия: <%=stats.totalFoods %></h1>
-<h1>Дневни ястия: <%=stats.availableFoods %></h1>
-<h1>Всички Резервации: <%=stats.totalReservations %></h1>
-<h1>Чакащи Резервации: <%=stats.waitingReservations %></h1>
-<h1>Потвърдени Резервации: <%=stats.approvedReservations %></h1>
+<section class="admin-stats">
+  <article>Всички ястия: <p><%=stats.totalFoods %></p><i class="fa-solid fa-bowl-food"></i></article>
+  <article>Дневни ястия: <p><%=stats.availableFoods %></p><i class="fa-solid fa-utensils"></i></article>
+  <article>
+    Всички Резервации: <p><%=stats.totalReservations %><i class="fa-solid fa-bell-concierge"></i></p>
+  </article>
+  <article>
+    Чакащи Резервации: <p><%=stats.waitingReservations %><i class="fa-solid fa-clock"></i></p>
+  </article>
+  <article>
+    Потвърдени Резервации: <p><%=stats.approvedReservations %><i class="fa-solid fa-thumbs-up"></i></p>
+  </article>
+</section>
