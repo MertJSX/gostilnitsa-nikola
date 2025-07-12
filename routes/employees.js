@@ -4,9 +4,10 @@ let fs = require("fs");
 let {
   getAllFoods,
   createFood,
-  updateFoodQuantity,
   deleteFood,
   getAllReservations,
+  finishReservation,
+  getStatistics
 } = require("../database");
 let image = require("../multer");
 const opt = yaml.load(fs.readFileSync("settings.yml", "utf8"));
@@ -69,14 +70,39 @@ employees.get("/logout", (req, res) => {
 });
 
 employees.get("/", (req, res) => {
-  res.render(__dirname + "/../views/admin/AdminHome.ejs", {
-    layout: __dirname + "/../views/layouts/adminLayout.ejs",
-    title: "Админ",
-  });
+  getStatistics((err, stats) => {
+    if (err) {
+      return res.render(__dirname + "/../views/Error.ejs", {
+        layout: __dirname + "/../views/layouts/adminLayout.ejs",
+        title: "Админ"
+      })
+    }
+    res.render(__dirname + "/../views/admin/AdminHome.ejs", {
+      layout: __dirname + "/../views/layouts/adminLayout.ejs",
+      title: "Админ",
+      stats: stats
+    });
+  })
 });
+
+employees.get("/reservations/finish", (req, res) => {
+  let id = req.query.id;
+
+  finishReservation(id, (err) => {
+    if (err) {
+      return res.render(__dirname + "/../views/Error.ejs", {
+        layout: __dirname + "/../views/layouts/adminLayout.ejs",
+        title: "Админ"
+      })
+    }
+    res.redirect("/admin/reservations")
+  })
+})
 
 employees.get("/reservations", (req, res) => {
   getAllReservations((err, reservations) => {
+    console.log(err);
+    
     if (err) {
       return res.render(__dirname + "/../views/Error.ejs", {
         layout: __dirname + "/../views/layouts/adminLayout.ejs",
@@ -89,6 +115,54 @@ employees.get("/reservations", (req, res) => {
       reservations: reservations
     });
   })
+});
+
+employees.get("/reservations/waiting", (req, res) => {
+  getAllReservations((err, reservations) => {
+    if (err) {
+      return res.render(__dirname + "/../views/Error.ejs", {
+        layout: __dirname + "/../views/layouts/adminLayout.ejs",
+        title: "Админ"
+      })
+    }
+    res.render(__dirname + "/../views/admin/Reservations.ejs", {
+      layout: __dirname + "/../views/layouts/adminLayout.ejs",
+      title: "Админ",
+      reservations: reservations
+    });
+  }, "waiting")
+});
+
+employees.get("/reservations/approved", (req, res) => {
+  getAllReservations((err, reservations) => {
+    if (err) {
+      return res.render(__dirname + "/../views/Error.ejs", {
+        layout: __dirname + "/../views/layouts/adminLayout.ejs",
+        title: "Админ"
+      })
+    }
+    res.render(__dirname + "/../views/admin/Reservations.ejs", {
+      layout: __dirname + "/../views/layouts/adminLayout.ejs",
+      title: "Админ",
+      reservations: reservations
+    });
+  }, "approved")
+});
+
+employees.get("/reservations/rejected", (req, res) => {
+  getAllReservations((err, reservations) => {
+    if (err) {
+      return res.render(__dirname + "/../views/Error.ejs", {
+        layout: __dirname + "/../views/layouts/adminLayout.ejs",
+        title: "Админ"
+      })
+    }
+    res.render(__dirname + "/../views/admin/Reservations.ejs", {
+      layout: __dirname + "/../views/layouts/adminLayout.ejs",
+      title: "Админ",
+      reservations: reservations
+    });
+  }, "rejected")
 });
 
 employees.get("/foods", (req, res) => {

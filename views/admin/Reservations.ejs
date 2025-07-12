@@ -1,6 +1,12 @@
+<section class="reservations-navbar">
+  <a href="/admin/reservations">Всички</a>
+  <a href="/admin/reservations/waiting">Чакащи</a>
+  <a href="/admin/reservations/approved">Потвърдени</a>
+  <a href="/admin/reservations/rejected">Отхвърлени</a>
+</section>
 <section class="reservations">
   <% if (!reservations || reservations.length === 0) { %>
-  <h3>Няма налични направени заявки за резервация</h3>
+  <h3>Няма налични направени заявки</h3>
   <% } else { %> <% reservations.forEach(reservation => { %>
   <article class="reservation" data-approved="<%= reservation.approved %>">
     <p>Имейл: <%= reservation.userEmail %></p>
@@ -11,10 +17,13 @@
       onchange="onStateChange(event, '<%=reservation.id%>')"
       id="rapproved-<%=reservation.id%>"
     >
-      <option value="true">Потвърден</option>
-      <option value="false">Отхвърлен</option>
-      <option value="waiting">Чакащ</option>
+      <option value="approved">Потвърдена</option>
+      <option value="rejected">Отхвърлена</option>
+      <option value="waiting">Чакаща</option>
     </select>
+    <button ondblclick="window.location.href='/admin/reservations/finish?id=<%=reservation.id%>'">
+      Finish
+    </button>
   </article>
   <% }); %> <% } %>
 </section>
@@ -29,10 +38,10 @@
       const approvedValue = reservationEl.getAttribute('data-approved');
       const select = reservationEl.querySelector('select');
       
-      if (approvedValue === 'true') {
-        select.value = 'true';
-      } else if (approvedValue === 'false') {
-        select.value = 'false';
+      if (approvedValue === 'approved') {
+        select.value = 'approved';
+      } else if (approvedValue === 'rejected') {
+        select.value = 'rejected';
       } else {
         select.value = 'waiting';
       }
