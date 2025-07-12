@@ -36,12 +36,19 @@ header {
   gap: 1px;
   border-bottom: 2px solid black;
   .nav-element {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
     color: black;
     font-size: 1.2rem;
     text-decoration: none;
     padding: 10px;
     padding-inline: 30px;
     transition: all 0.3s ease;
+    * {
+      color: black;
+    }
     &:hover {
       transform: scale(1.1);
       padding-inline: 60px;
@@ -74,17 +81,50 @@ header {
   align-items: center;
   gap: 20px;
   .reservation {
-    h1 {
-      font-size: 20px;
-    }
+    background-color: #0e4e0e;
+    padding: 20px;
+    box-shadow: 2px 2px 3px black;
     p {
       font-size: 15px;
+      padding: 10px;
     }
     select {
       width: 100%;
       background-color: #FFC107;
       color: black;
       font-size: 1.1rem;
+      option {
+        color: black;
+      }
+    }
+    button {
+      width: 100%;
+      background-color: #FFC107;
+      color: black;
+      font-size: 1.1rem;
+      border: none;
+      margin-top: 5px;
+    }
+  }
+}
+
+.reservations-navbar {
+  background-color: #FFC107;
+  color: black;
+  border-radius: 15px;
+  display: flex;
+  justify-content: center;
+  margin: 20px;
+  margin-inline: auto;
+  width: 60%;
+  a {
+    text-decoration: none;
+    color: black;
+    padding: 20px;
+    transition: all 0.2s ease-in-out;
+    &:hover {
+      /* background-color: #e2b01b; */
+      transform: scale(1.1);
     }
   }
 }
@@ -119,7 +159,7 @@ footer {
   width: 100vw;
   height: 100vh;
   z-index: -1;
-  opacity: 0.1;
+  opacity: 0.4;
 }
 
 @media only screen and (max-width: 600px) {

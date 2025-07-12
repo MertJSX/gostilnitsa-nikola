@@ -199,7 +199,8 @@
     justify-content: center;
     gap: 1px;
     .nav-element {
-      font-size: 1.1rem;
+      gap: 2px;
+      font-size: 1rem;
       padding: 10px;
       padding-inline: 10px;
       transition: all 0.3s ease;
@@ -243,6 +244,7 @@ body {
   display: flex;
   flex-direction: column;
   background-color: #0d4b0d;
+  /* background-color: #2f2f2f; */
   min-height: 110vh;
 }
 

@@ -34,6 +34,13 @@ header {
     padding: 10px;
     padding-inline: 30px;
     transition: all 0.3s ease;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    * {
+      color: black;
+    }
     &:hover {
       transform: scale(1.1);
       padding-inline: 60px;
