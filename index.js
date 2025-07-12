@@ -27,8 +27,7 @@ app.use(
 app.use(
   "/public",
   express.static(
-    "public",
-    // { maxAge: 24 * 60 * 60 * 1000 } // 1 day cache
+    "public"
   )
 );
 app.use("/", clients)
