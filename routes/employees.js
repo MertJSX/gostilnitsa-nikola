@@ -101,8 +101,6 @@ employees.get("/reservations/finish", (req, res) => {
 
 employees.get("/reservations", (req, res) => {
   getAllReservations((err, reservations) => {
-    console.log(err);
-    
     if (err) {
       return res.render(__dirname + "/../views/Error.ejs", {
         layout: __dirname + "/../views/layouts/adminLayout.ejs",
