@@ -3,7 +3,6 @@ let expressLayouts = require("express-ejs-layouts")
 let yaml = require("js-yaml")
 let fs = require("fs")
 let session = require("express-session")
-const PORT = 3000;
 let employees = require("./routes/employees")
 let clients = require("./routes/clients")
 let { initializeDatabase } = require("./database")
@@ -11,6 +10,7 @@ initializeDatabase();
 let ws = require("./websocket")
 let api = require("./routes/api")
 const opt = yaml.load(fs.readFileSync("settings.yml", "utf8"));
+const PORT = opt.port;
 let app = express()
 
 app.set("view engine", "ejs")
